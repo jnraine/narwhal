@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: ca.sfu.maven.plugins:maven-narwhal-plugin:0.1.1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/ca/sfu/maven/plugins/maven-narwhal-plugin/0.1.1/maven-narwhal-plugin-0.1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/ca/sfu/maven/plugins/maven-narwhal-plugin/0.1.1/maven-narwhal-plugin-0.1.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/ca/sfu/maven/plugins/maven-narwhal-plugin/0.1.1/maven-narwhal-plugin-0.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
