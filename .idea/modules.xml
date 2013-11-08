@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/narwhal-maven-plugin.iml" filepath="$PROJECT_DIR$/narwhal-maven-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test-project/project-to-test.iml" filepath="$PROJECT_DIR$/test-project/project-to-test.iml" />
     </modules>
   </component>
 </project>

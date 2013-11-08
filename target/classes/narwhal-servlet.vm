@@ -1,5 +1,6 @@
 package $package;
 
+import $controllerCanonicalName;
 import ca.sfu.cq.narwhal.NarwhalServlet;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Properties;
@@ -9,7 +10,7 @@ import org.apache.felix.scr.annotations.Service;
 @Component
 @Service
 @Properties({
-	@Property(name = "sling.servlet.resourceTypes", value = "$resourceType"),
+	@Property(name = "sling.servlet.resourceTypes", value = $resourceType),
 	@Property(name = "sling.servlet.extensions", value = "$extension"),
 	@Property(name = "sling.servlet.methods", value = "$method")
 })

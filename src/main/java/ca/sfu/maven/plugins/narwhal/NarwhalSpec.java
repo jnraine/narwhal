@@ -1,9 +1,8 @@
 package ca.sfu.maven.plugins.narwhal;
 
-import ca.sfu.maven.plugins.narwhal.annotation.Narwhal;
-import com.sun.mirror.declaration.TypeDeclaration;
+import com.thoughtworks.qdox.model.Annotation;
+import com.thoughtworks.qdox.model.JavaClass;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,10 +10,10 @@ import java.util.Map;
  * Class containing information about a narwhal component. Used when generating servlet class.
  */
 public class NarwhalSpec {
-	private final TypeDeclaration controllerType;
+	private final JavaClass controllerKlass;
 
-	public NarwhalSpec(TypeDeclaration narwhalControllerType) {
-		this.controllerType = narwhalControllerType;
+	public NarwhalSpec(JavaClass controllerKlass) {
+		this.controllerKlass = controllerKlass;
 	}
 
 	public String getServletName() {
@@ -22,7 +21,7 @@ public class NarwhalSpec {
 	}
 
 	public String getPackage() {
-		return getControllerType().getPackage().getQualifiedName();
+		return getControllerKlass().getPackage().getName();
 	}
 
 	public String getMethod() {
@@ -34,7 +33,7 @@ public class NarwhalSpec {
 	}
 
 	public String getResourceType() {
-		return getAnnotation().resourceType();
+		return (String) getNarwhalAnnotation().getProperty("resourceType").getParameterValue();
 	}
 
 	public Map<String, Object> getMap() {
@@ -45,15 +44,23 @@ public class NarwhalSpec {
 		map.put("controllerName", getControllerName());
 		map.put("servletName", getServletName());
 		map.put("package", getPackage());
+		map.put("extension", getExtension());
+		map.put("controllerCanonicalName", getControllerKlass().getFullyQualifiedName());
 		return map;
 	}
 
-	public TypeDeclaration getControllerType() {
-		return controllerType;
+	public JavaClass getControllerKlass() {
+		return controllerKlass;
 	}
 
-	public Narwhal getAnnotation() {
-		return getControllerType().getAnnotation(Narwhal.class);
+	public Annotation getNarwhalAnnotation() {
+		Annotation[] annotations = getControllerKlass().getAnnotations();
+		for(Annotation annotation : annotations) {
+			if(annotation.getType().isA(NarwhalMojo.getNarwhalAnnotationType()))
+				return annotation;
+		}
+
+		throw new RuntimeException(getControllerKlass() + " does not have @Narwhal annotation set");
 	}
 
 	/**
@@ -66,7 +73,11 @@ public class NarwhalSpec {
 	}
 
 	public String getControllerName() {
-		return getControllerType().getSimpleName();
+		return getControllerKlass().getName();
+	}
+
+	public String getExtension() {
+		return "html";
 	}
 }
 

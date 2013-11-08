@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0">
+    <scr:component enabled="true" name="ca.sfu.maven.plugins.narwhal.test.FooServlet">
+        <implementation class="ca.sfu.maven.plugins.narwhal.test.FooServlet"/>
+        <service servicefactory="false">
+            <provide interface="javax.servlet.Servlet"/>
+            <provide interface="javax.servlet.ServletConfig"/>
+            <provide interface="java.io.Serializable"/>
+        </service>
+        <property name="sling.servlet.resourceTypes" type="String" value="my-app/components/foo" private="false"/>
+        <property name="sling.servlet.extensions" type="String" value="html" private="false"/>
+        <property name="sling.servlet.methods" type="String" value="GET" private="false"/>
+        <property name="service.pid" value="ca.sfu.maven.plugins.narwhal.test.FooServlet" private="false"/>
+    </scr:component>
+</components>

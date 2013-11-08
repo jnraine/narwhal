@@ -26,6 +26,7 @@
         <processorPath useClasspath="true" />
         <module name="maven-sling-test-runner-plugin" />
         <module name="narwhal-maven-plugin" />
+        <module name="project-to-test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1383951496295
+Build-Jdk: 1.6.0_65
+Built-By: jnraine
+Bundle-Activator: ca.sfu.maven.plugins.narwhal.test.Activator
+Bundle-ManifestVersion: 2
+Bundle-Name: Test MyMojo
+Bundle-SymbolicName: ca.sfu.maven.plugins.narwhal.test
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: ca.sfu.maven.plugins.narwhal.test;uses:="ca.sfu.cq.narwh
+ al,org.apache.sling.api,org.osgi.framework";version="1.0.0.SNAPSHOT"
+Import-Package: ca.sfu.cq.narwhal,org.apache.sling.api;version="[2.2,3)"
+ ,org.osgi.framework;version="[1.5,2)",org.slf4j;version="[1.6,2)"
+Service-Component: OSGI-INF/serviceComponents.xml
+Tool: Bnd-2.1.0.20130426-122213
