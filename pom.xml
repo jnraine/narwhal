@@ -11,6 +11,10 @@
 	<artifactId>narwhal-maven-plugin</artifactId>
 	<version>0.1.2-SNAPSHOT</version>
 
+	<prerequisites>
+		<maven>3.0.4</maven>
+	</prerequisites>
+
 	<properties>
 		<mavenVersion>3.0.4</mavenVersion>
 		<mavenPluginPluginVersion>3.2</mavenPluginPluginVersion>
