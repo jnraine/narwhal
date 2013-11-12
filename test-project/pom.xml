@@ -7,7 +7,7 @@
 	<groupId>ca.sfu.maven.plugins.narwhal</groupId>
 	<artifactId>test</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<packaging>bundle</packaging>
+	<packaging>narwhal-bundle</packaging>
 	<name>Test Narwhal Project</name>
 	<description>This project gives a basic example of how to use narwhal and also serves as a testing suite of sorts.</description>
 
@@ -35,21 +35,65 @@
 		</dependency>
 	</dependencies>
 
+	<repositories>
+		<repository>
+			<id>central</id>
+			<url>http://icat-artifactory.its.sfu.ca/artifactory/repo</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<url>http://icat-artifactory.its.sfu.ca/artifactory/repo</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+
 	<build>
+		<!-- Otherwise a compilation error is thrown -->
 		<sourceDirectory>${basedir}/main/java</sourceDirectory>
+
 		<plugins>
+			<!-- This compiles classes -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+			</plugin>
+
+			<!-- This assembles your Narwhal components -->
 			<plugin>
 				<version>0.1.2-SNAPSHOT</version>
-				<groupId>ca.sfu.maven.plugins</groupId>
+				<groupId>ca.sfu.maven.plugins.narwhal</groupId>
 				<artifactId>narwhal-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>generate-sources</goal>
-						</goals>
-					</execution>
-				</executions>
+				<extensions>true</extensions>
+				<!--<configuration>-->
+					<!--<componentPath>/apps/clf/components</componentPath>-->
+					<!--<templatePath>/apps/clf/templates</templatePath>-->
+				<!--</configuration>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<goals>-->
+							<!--<goal>generate-sources</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
 			</plugin>
+
+			<!-- This generates your OSGI-INF from annotations -->
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-scr-plugin</artifactId>
@@ -62,22 +106,22 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<!-- This bundles up compiled content for deployment -->
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<version>2.4.0</version>
 				<!-- this enables the "bundle" packaging type -->
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Export-Package>${project.groupId}.${project.artifactId}.*</Export-Package>
-						<Bundle-Activator>${project.groupId}.${project.artifactId}.Activator</Bundle-Activator>
-					</instructions>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<!--<extensions>true</extensions>-->
+				<!--<configuration>-->
+					<!--<instructions>-->
+						<!--<Sling-Initial-Content>-->
+							<!--narwhal/components; path:=/apps/clf/components/; overwrite:=true; uninstall=true,-->
+							<!--narwhal/templates; path:=/apps/clf/templates/; overwrite:=true; uninstall=true,-->
+						<!--</Sling-Initial-Content>-->
+					<!--</instructions>-->
+				<!--</configuration>-->
 			</plugin>
 		</plugins>
 	</build>
