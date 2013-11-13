@@ -5,6 +5,10 @@ import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.Annotation;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.Type;
+import org.apache.commons.lang.StringUtils;
+import org.apache.maven.model.Build;
+import org.apache.maven.model.Plugin;
+import org.apache.maven.model.PluginExecution;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -18,6 +22,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 @Mojo(name = "generate-sources", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 public class NarwhalMojo extends AbstractMojo {
@@ -56,11 +62,44 @@ public class NarwhalMojo extends AbstractMojo {
 
 			project.addCompileSourceRoot(outputDirectory.getAbsolutePath());
 
+			// configureDefaultNarwhalBuild();
+
 		} catch (Exception e) {
 			throw new RuntimeException("General error", e);
 		}
 
-		getLog().info(">>> I've finished without problem!");
+		getLog().info("Narwhal done.");
+	}
+
+	private void configureDefaultNarwhalBuild() {
+		getLog().info("Modifying build!");
+		Build build = project.getBuild();
+
+		// Initialize plugin
+		Plugin scrPlugin = new Plugin();
+		scrPlugin.setGroupId("org.apache.felix");
+		scrPlugin.setArtifactId("maven-scr-plugin");
+		scrPlugin.setVersion("1.4.4");
+
+		// Setup goal executions
+		List<PluginExecution> executions = new ArrayList<PluginExecution>();
+		PluginExecution scrExecution = new PluginExecution();
+		List<String> scrGoals = new ArrayList<String>() {{
+			add("scr");
+		}};
+		scrExecution.setGoals(scrGoals);
+		executions.add(scrExecution);
+		scrPlugin.setExecutions(executions);
+
+		// Add plugin to build
+		List<Plugin> plugins = build.getPlugins();
+		plugins.add(2, scrPlugin);
+		build.setPlugins(plugins);
+		project.setBuild(build);
+
+		for(Plugin plugin : build.getPlugins()) {
+			getLog().info("Plugin: " + plugin.getGroupId() + ":" + plugin.getArtifactId() + ":" + plugin.getVersion() + ":" + StringUtils.join(plugin.getExecutions(), ","));
+		}
 	}
 
 	public void generate() throws Exception {
