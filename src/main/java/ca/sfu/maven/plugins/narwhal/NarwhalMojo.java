@@ -54,7 +54,7 @@ public class NarwhalMojo extends AbstractMojo {
 
 	public void execute() {
 		try {
-			getLog().info("This is the source path: " + sourcePath);
+			getLog().debug("This is the source path: " + sourcePath);
 			this.javaDocBuilder = new JavaDocBuilder();
 			javaDocBuilder.addSourceTree(new File(sourcePath));
 
