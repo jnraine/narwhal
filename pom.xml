@@ -9,7 +9,7 @@
 
 	<groupId>ca.sfu.maven.plugins.narwhal</groupId>
 	<artifactId>narwhal-maven-plugin</artifactId>
-	<version>0.1.2-SNAPSHOT</version>
+	<version>0.1.3</version>
 
 	<prerequisites>
 		<maven>3.0.4</maven>

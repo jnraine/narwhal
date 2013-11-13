@@ -159,7 +159,7 @@ public class NarwhalMojo extends AbstractMojo {
 			if (annotation.getType().isA(getNarwhalAnnotationType())) {
 				return true;
 			} else {
-				getLog().info(annotation.getType() + " isn't equals to " + Narwhal.class);
+				getLog().debug(annotation.getType() + " isn't equals to " + Narwhal.class);
 			}
 		}
 
